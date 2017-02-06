@@ -1,22 +1,15 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { render } from 'react-dom';
 
-import './main.html';
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
-});
+import '../imports/startup/accounts-config.js';
+import App from '../imports/ui/App.jsx';
+import USizeItApp from '../imports/ui/USizeItApp.jsx';
+import NewSession from '../imports/ui/session/NewSession.jsx';
 
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
-});
+import { renderRoutes } from '../imports/ui/Routes.jsx';
 
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
+Meteor.startup(() => {
+  render(renderRoutes(), document.getElementById('render-target'));
 });
